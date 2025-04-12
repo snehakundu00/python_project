@@ -30,3 +30,17 @@ print(duplicates)
 
 print("Statistical summary\n")
 print(df.describe())
+
+
+# Convert 'last_update' to datetime
+df['last_update'] = pd.to_datetime(df['last_update'], errors='coerce')
+
+# Drop rows with missing avg values
+df = df.dropna(subset=['pollutant_avg'])
+
+# Group by date and pollutant
+trend_df = df.groupby([df['last_update'].dt.date, 'pollutant_id'])['pollutant_avg'].mean().unstack()
+
+# Check if data exists
+print("Grouped data preview:")
+print(trend_df.head())
