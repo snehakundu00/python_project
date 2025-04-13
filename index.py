@@ -85,3 +85,28 @@ plt.ylabel("Average Level")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
+
+
+# Extract month from datetime
+df['month'] = df['last_update'].dt.month_name()
+
+# Boxplot: Seasonal variation for PM2.5
+plt.figure(figsize=(12,6))
+sns.boxplot(x='month', y='pollutant_avg', data=df[df['pollutant_id'] == 'PM2.5'])
+plt.title("Monthly Variation in PM2.5 Levels")
+plt.ylabel("PM2.5")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+###################################################
+
+# Heatmap of average pollutants per city
+
+plt.figure(figsize=(14,8))
+sns.heatmap(hotspot_df.fillna(0).T, cmap="Reds", annot=False)
+plt.title("Heatmap: Average Pollutant Levels Across Cities")
+plt.xlabel("City")
+plt.ylabel("Pollutant")
+plt.tight_layout()
+plt.show()
