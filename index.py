@@ -72,3 +72,16 @@ plt.ylabel("Average PM2.5 Level")
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 plt.show()
+
+
+# Average pollutant levels per city
+pollutant_comparison = df.groupby(['city', 'pollutant_id'])['pollutant_avg'].mean().unstack()
+
+# Plot for selected cities
+selected_cities = ['Delhi', 'Mumbai', 'Chennai', 'Kolkata']
+pollutant_comparison.loc[selected_cities].plot(kind='bar', figsize=(10,6))
+plt.title("Pollutant Comparison Across Major Cities")
+plt.ylabel("Average Level")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
