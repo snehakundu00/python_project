@@ -58,3 +58,17 @@ plt.ylabel("Pollutant")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
+
+
+# Group by city and pollutant, then find average values
+hotspot_df = df.groupby(['city', 'pollutant_id'])['pollutant_avg'].mean().unstack()
+
+# Find cities with highest average PM2.5
+top_cities = hotspot_df.sort_values(by='PM2.5', ascending=False).head(10)
+
+# Plot
+top_cities.plot(kind='bar', figsize=(12,6), title="Top 10 Pollution Hotspots by PM2.5")
+plt.ylabel("Average PM2.5 Level")
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
