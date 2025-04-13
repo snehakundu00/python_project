@@ -44,3 +44,17 @@ trend_df = df.groupby([df['last_update'].dt.date, 'pollutant_id'])['pollutant_av
 # Check if data exists
 print("Grouped data preview:")
 print(trend_df.head())
+
+# Plot
+heatmap_data = df.groupby([df['last_update'].dt.date, 'pollutant_id'])['pollutant_avg'].mean().unstack()
+
+# Plot heatmap
+plt.figure(figsize=(12, 6))
+sns.heatmap(heatmap_data.T, cmap="YlGnBu", linewidths=0.5, linecolor='gray')
+
+plt.title("Pollutant Levels Over Time (Heatmap)")
+plt.xlabel("Date")
+plt.ylabel("Pollutant")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
